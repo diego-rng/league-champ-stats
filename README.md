@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # LeagueChampStats
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.1.3.
@@ -61,4 +60,3 @@ For more information on using the Angular CLI, including detailed command refere
 =======
 # league-champ-stats
 A repository meant for the personal project for the year 2026, a complete compendium of champion data, player statistics and etc. based on the game League of Legends.
->>>>>>> 741eed9f0f095725b932ecbdd4788583ab4f1133
