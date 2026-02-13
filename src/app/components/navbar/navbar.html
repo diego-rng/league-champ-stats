@@ -1,15 +1,43 @@
-<div class="flex flex-row justify-between">
+<div class="flex flex-row justify-between py-2">
   <button>
     <img src="assets/images/svg/league.svg" alt="League icon" class="w-20 h-20 absolute -top-3" />
   </button>
   <div class="bg-[#091624] rounded-bl-4xl rounded-tl-4xl flex align-center">
-    <button type="button" class="p-2 px-4 my-1 mx-4 rounded-4xl transition-all text-white hover:text-black hover:bg-white">Home</button>
-    <button type="button" class="p-2 px-4 my-1 mx-4 rounded-4xl transition-all text-white hover:text-black hover:bg-white">Champions</button>
-    <button type="button" class="p-2 px-4 my-1 mx-4 rounded-4xl transition-all text-white hover:text-black hover:bg-white">Winrates</button>
-    <button type="button" class="p-2 px-4 my-1 mx-4 rounded-4xl transition-all text-white hover:text-black hover:bg-white">Your Stats</button>
+    <a
+      class="p-2 px-4 my-1 mx-4 rounded-4xl transition-all hover:text-black hover:bg-white"
+      routerLink="/"
+      [ngClass]="isHomeActive() ? ' bg-white text-black ' : ' text-white '"
+      [class.active]="isHomeActive()"
+      (click)="navigateToHome()"
+    >
+      Home
+    </a>
+    <a
+      class="p-2 px-4 my-1 mx-4 rounded-4xl transition-all hover:text-black hover:bg-white"
+      routerLink="/champions"
+      [ngClass]="isChampionsActive() ? ' bg-white text-black ' : ' text-white '"
+      [class.active]="isChampionsActive()"
+      (click)="navigateToChampions()"
+    >
+      Champions
+    </a>
+    <a
+      class="p-2 px-4 my-1 mx-4 rounded-4xl transition-all hover:text-black hover:bg-white"
+      routerLink="/winrates"
+      [ngClass]="isWinratesActive() ? ' bg-white text-black ' : ' text-white '"
+      [class.active]="isWinratesActive()"
+      (click)="navigateToWinrates()"
+    >
+      Winrates
+    </a>
+    <button
+      type="button"
+      class="p-2 px-4 my-1 mx-4 rounded-4xl transition-all text-white hover:text-black hover:bg-white"
+    >
+      Your Stats
+    </button>
     <button class="mr-2">
       <img src="assets/images/svg/user-icon.svg" alt="user" class="" />
     </button>
   </div>
 </div>
-
