@@ -33,7 +33,6 @@
     "@angular/platform-server": "^21.1.0",
     "@angular/router": "^21.1.0",
     "@angular/ssr": "^21.1.3",
-    "@skoleosho97/ddragon": "^0.1.1",
     "axios": "^1.13.5",
     "express": "^5.1.0",
     "rxjs": "~7.8.0",

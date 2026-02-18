@@ -17,7 +17,11 @@
     "baseUrl": "./",
     "paths" : {
       "@assets/*": ["src/assets/*"],
-    }
+      "@card/*" : ["src/assets/data-dragon/img/champion/loading/*"],
+      "@champList/*": ["src/assets/data-dragon/16.3.1/data/en_US/*"], 
+    },
+    "resolveJsonModule": true,
+    "esModuleInterop": true
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

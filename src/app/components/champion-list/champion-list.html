@@ -1,0 +1,5 @@
+<div class="flex flex-wrap gap-3 justify-items-center">
+    @for (champion of champions; track champion.id) {
+        <app-champion-card [champion]="champion" />
+    }
+</div>

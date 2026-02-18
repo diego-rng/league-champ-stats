@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
 
 # Compiled output
@@ -39,11 +38,11 @@ yarn-error.log
 testem.log
 /typings
 __screenshots__/
+src/assets/data-dragon/*
 
 # System files
 .DS_Store
 Thumbs.db
-=======
 # Angular specific
 /dist/
 /out-tsc/
@@ -72,4 +71,3 @@ Thumbs.db
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
->>>>>>> 741eed9f0f095725b932ecbdd4788583ab4f1133
