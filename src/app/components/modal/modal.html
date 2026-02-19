@@ -1,0 +1,15 @@
+@if (isActive){
+  <div class="flex justify-center align-middle">
+   <!-- transparent overlay -->
+   <button (click)="disableModal()">
+     <div class="bg-black h-screen w-screen opacity-50 fixed left-0 top-0 z-60"></div>
+   </button>
+    <!-- the actual modal -->
+    <div class="bg-gray-600 rounded-2xl fixed left-[50vw] top-[50vh] -translate-x-[50%] -translate-y-[50%] shadow w-400 h-200 p-6 text-white z-70">
+      <img loading="lazy" [src]="'src/assets/data-dragon/img/champion/centered/' + champData.id + '_0.jpg'" />
+    </div>
+  </div>
+}
+@else {
+  <div></div>
+}

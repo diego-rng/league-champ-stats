@@ -8,7 +8,6 @@ import { NavigationUtil } from 'src/app/core/utils/navigation.util';
   selector: 'app-navbar',
   imports: [RouterModule, NgClass],
   templateUrl: './navbar.html',
-  styleUrl: './navbar.css',
 })
 export class Navbar {
   private router = inject(Router);
@@ -20,7 +19,7 @@ export class Navbar {
     fragment: 'ignored',
     matrixParams: 'ignored'
   })
-  
+
   navigateToHome () {
     this.navigationUtil.navigateTo({
       path: '/home',

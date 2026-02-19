@@ -1,9 +1,17 @@
-<button class="relative w-77 h-140 overflow-hidden">
-  <img
-    loading="lazy"
-    class="z-0 absolute inset-0 w-full h-full object-cover"
-    [src]="'assets/data-dragon/img/champion/loading/' + champion.id + '_0.jpg'"
-  />
+<button class="relative w-77 h-140 overflow-hidden cursor-pointer " (click)="champModal()">
+  @if (champion.id == 'FiddleSticks') {
+    <img
+
+      class="z-0 absolute inset-0 w-full h-full object-cover"
+      [src]="'assets/data-dragon/img/champion/loading/Fiddlesticks_0.jpg'"
+    />
+  } @else {
+    <img
+      loading="lazy"
+      class="z-0 absolute inset-0 w-full h-full object-cover"
+      [src]="'assets/data-dragon/img/champion/loading/' + champion.id + '_0.jpg'"
+    />
+  }
   <div class="z-10 bg-black/70 w-full h-1/3 absolute bottom-0 left-0"></div>
   <div class="absolute bottom-0 left-0 w-full h-1/3 z-20 p-4 flex flex-col justify-end">
     <h1 class="font-bold text-2xl text-white">{{ [champion.name.toUpperCase()] }}</h1>
@@ -11,17 +19,18 @@
     <p class="font-light text-sm text-white">{{ [champion.title] }}</p>
     <div class="flex text-center items-center">
       <img class="w-12 h-12" [src]="'assets/images/svg/' + SUGGESTED_LANE[champion.id] + '.svg'" />
-        <p class="font-light text-sm text-white ml-2">{{SUGGESTED_LANE[champion.id]}}</p>
+      <p class="font-light text-sm text-white ml-2">{{ SUGGESTED_LANE[champion.id] }}</p>
     </div>
     <div class="flex text-center items-center">
-      @if (champion.tags.at(0) == "Support") {
-      <img class="w-12 h-12" [src]="'assets/images/svg/Enchanter.svg'" />
+      @if (champion.tags.at(0) == 'Support') {
+        <img class="w-12 h-12" [src]="'assets/images/svg/Enchanter.svg'" />
         <p class="font-light text-sm text-white ml-2">Enchanter</p>
-      }
-      @else {
+      } @else {
         <img class="w-12 h-12" [src]="'assets/images/svg/' + champion.tags.at(0) + '.svg'" />
-          <p class="font-light text-sm text-white ml-2">{{[champion.tags.at(0)]}}</p>
+        <p class="font-light text-sm text-white ml-2">{{ [champion.tags.at(0)] }}</p>
       }
     </div>
   </div>
 </button>
+
+<champ-modal [champData]="currentChamp()" [isActive]="isModalActive()" />
