@@ -1,8 +1,6 @@
-import { Component, Input, signal } from "@angular/core";
+import { Component, Input, signal, WritableSignal } from "@angular/core";
 import { Champion } from "../champion-list/champion-list";
 import { isActive } from "@angular/router";
-
-
 
 @Component({
   selector: 'champ-modal',
@@ -10,12 +8,13 @@ import { isActive } from "@angular/router";
 })
 
 export class ModalComponent {
-  @Input() isActive!: boolean;
+  @Input() isActive!: WritableSignal<boolean>;
   @Input() champData!: Champion;
 
 
   disableModal() {
-    this.isActive = false
+    this.isActive.set(false)
   }
+
 
 }

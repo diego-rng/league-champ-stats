@@ -1,15 +1,38 @@
-@if (isActive){
+@if (isActive()) {
   <div class="flex justify-center align-middle">
-   <!-- transparent overlay -->
-   <button (click)="disableModal()">
-     <div class="bg-black h-screen w-screen opacity-50 fixed left-0 top-0 z-60"></div>
-   </button>
+    <!-- transparent overlay -->
+    <button (click)="disableModal()">
+      <div class="bg-black h-screen w-screen opacity-50 fixed left-0 top-0 z-60"></div>
+    </button>
     <!-- the actual modal -->
-    <div class="bg-gray-600 rounded-2xl fixed left-[50vw] top-[50vh] -translate-x-[50%] -translate-y-[50%] shadow w-400 h-200 p-6 text-white z-70">
-      <img loading="lazy" [src]="'src/assets/data-dragon/img/champion/centered/' + champData.id + '_0.jpg'" />
+    <div
+      class="bg-black rounded-2xl fixed left-[50vw] top-[50vh] -translate-x-[50%] -translate-y-[50%] shadow w-400 h-200 text-white z-70 flex place-content-center mask-modal"
+    >
+      @if (champData.id == "Fiddlesticks") {
+        <img
+        loading="lazy"
+        id="image"
+        [src]="'assets/data-dragon/img/champion/centered/FiddleSticks_0.jpg'"
+        class="w-full h-full overflow-hidden rounded-2xl mask-b-from-0% z-80"
+      />
+      }
+      @else {
+        <img
+        loading="lazy"
+        id="image"
+        [src]="'assets/data-dragon/img/champion/centered/' + champData.id + '_0.jpg'"
+        class="w-full h-full overflow-hidden rounded-2xl mask-b-from-0% z-80"
+      />
+    }
+      <h1 class="z-90 text-white text-6xl font-bold absolute left-[50%] -translate-x-[50%] -translate-y-[50%] top-[60%]"> {{champData.name.toUpperCase()}} </h1>
+      <p class="z-90 text-white text-4xl font-semibold absolute left-[50%] -translate-x-[50%] -translate-y-[50%] top-[66%]">{{ champData.title }}</p>
+      <div class="absolute z-90 top-[75%] flex justify-between gap-20">
+        <img class="border-6 border-white"[src]="'assets/data-dragon/16.4.1/data/img/passive/' + champData.id + '_Passive.png'" />
+        <img class="border-6 border-white"[src]="'assets/data-dragon/16.4.1/data/img/spell/' + champData.id + 'Q.png'" />
+        <img class="border-6 border-white"[src]="'assets/data-dragon/16.4.1/data/img/spell/' + champData.id + 'W.png'" />
+        <img class="border-6 border-white"[src]="'assets/data-dragon/16.4.1/data/img/spell/' + champData.id + 'E.png'" />
+        <img class="border-6 border-white"[src]="'assets/data-dragon/16.4.1/data/img/spell/' + champData.id + 'R.png'" />
+      </div>
     </div>
   </div>
-}
-@else {
-  <div></div>
 }
