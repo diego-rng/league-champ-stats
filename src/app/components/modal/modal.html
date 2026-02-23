@@ -8,30 +8,104 @@
     <div
       class="bg-black rounded-2xl fixed left-[50vw] top-[50vh] -translate-x-[50%] -translate-y-[50%] shadow w-400 h-200 text-white z-70 flex place-content-center mask-modal"
     >
-      @if (champData.id == "Fiddlesticks") {
+      @if (champData.id == 'Fiddlesticks') {
         <img
-        loading="lazy"
-        id="image"
-        [src]="'assets/data-dragon/img/champion/centered/FiddleSticks_0.jpg'"
-        class="w-full h-full overflow-hidden rounded-2xl mask-b-from-0% z-80"
-      />
+          loading="lazy"
+          id="image"
+          [src]="'assets/data-dragon/img/champion/centered/FiddleSticks_0.jpg'"
+          class="w-full h-full overflow-hidden rounded-2xl mask-b-from-0% z-80"
+        />
+      } @else {
+        <img
+          loading="lazy"
+          id="image"
+          [src]="'assets/data-dragon/img/champion/centered/' + champData.id + '_0.jpg'"
+          class="w-full h-full overflow-hidden rounded-2xl mask-b-from-0% z-80"
+        />
       }
-      @else {
-        <img
-        loading="lazy"
-        id="image"
-        [src]="'assets/data-dragon/img/champion/centered/' + champData.id + '_0.jpg'"
-        class="w-full h-full overflow-hidden rounded-2xl mask-b-from-0% z-80"
-      />
-    }
-      <h1 class="z-90 text-white text-6xl font-bold absolute left-[50%] -translate-x-[50%] -translate-y-[50%] top-[60%]"> {{champData.name.toUpperCase()}} </h1>
-      <p class="z-90 text-white text-4xl font-semibold absolute left-[50%] -translate-x-[50%] -translate-y-[50%] top-[66%]">{{ champData.title }}</p>
+      <h1
+        class="z-90 text-white text-6xl font-bold absolute left-[50%] -translate-x-[50%] -translate-y-[50%] top-[60%]"
+      >
+        {{ champData.name.toUpperCase() }}
+      </h1>
+      <p
+        class="z-90 text-white text-4xl font-semibold absolute left-[50%] -translate-x-[50%] -translate-y-[50%] top-[66%]"
+      >
+        {{ champData.title }}
+      </p>
       <div class="absolute z-90 top-[75%] flex justify-between gap-20">
-        <img class="border-6 border-white"[src]="'assets/data-dragon/16.4.1/data/img/passive/' + champData.id + '_Passive.png'" />
-        <img class="border-6 border-white"[src]="'assets/data-dragon/16.4.1/data/img/spell/' + champData.id + 'Q.png'" />
-        <img class="border-6 border-white"[src]="'assets/data-dragon/16.4.1/data/img/spell/' + champData.id + 'W.png'" />
-        <img class="border-6 border-white"[src]="'assets/data-dragon/16.4.1/data/img/spell/' + champData.id + 'E.png'" />
-        <img class="border-6 border-white"[src]="'assets/data-dragon/16.4.1/data/img/spell/' + champData.id + 'R.png'" />
+        <img
+          class="border-6 border-white"
+          [src]="'assets/data-dragon/16.4.1/data/img/passive/' + champData.id + '_Passive.png'"
+          (mouseenter)="isPassiveHovered = true"
+          (mouseleave)="isPassiveHovered = false"
+        />
+        <img
+          class="border-6 border-white"
+          [src]="'assets/data-dragon/16.4.1/data/img/spell/' + champData.id + 'Q.png'"
+          (mouseenter)="isQHovered = true"
+          (mouseleave)="isQHovered = false"
+        />
+        <img
+          class="border-6 border-white"
+          [src]="'assets/data-dragon/16.4.1/data/img/spell/' + champData.id + 'W.png'"
+          (mouseenter)="isWHovered = true"
+          (mouseleave)="isWHovered = false"
+        />
+        <img
+          class="border-6 border-white"
+          [src]="'assets/data-dragon/16.4.1/data/img/spell/' + champData.id + 'E.png'"
+          (mouseenter)="isEHovered = true"
+          (mouseleave)="isEHovered = false"
+        />
+        <img
+          class="border-6 border-white"
+          [src]="'assets/data-dragon/16.4.1/data/img/spell/' + champData.id + 'R.png'"
+          (mouseenter)="isRHovered = true"
+          (mouseleave)="isRHovered = false"
+        />
+      </div>
+      <div class="absolute z-100 top-[55%] pointer-events-none">
+        <div [ngClass]="!isPassiveHovered ? 'hidden' : ''" class="bg-gray-600 -translate-x-[80%] max-w-80 text-wrap p-4 pt-2">
+          <p class="text-white font-semibold">
+            {{ champData.passive.name }}
+          </p>
+          <p class="text-white">
+            {{ champData.passive.description }}
+          </p>
+        </div>
+        <div [ngClass]="!isQHovered ? 'hidden' : ''" class="bg-gray-600 -translate-x-[40%] max-w-80 text-wrap p-4 pt-2">
+          <p class="text-white font-semibold">
+            {{ champData.spells.at(0)?.name }}
+          </p>
+          <p class="text-white">
+            {{ champData.spells.at(0)?.description }}
+          </p>
+        </div>
+        <div [ngClass]="!isWHovered ? 'hidden' : ''" class="bg-gray-600 max-w-120 text-wrap p-4 pt-2">
+          <p class="text-white font-semibold">
+            {{ champData.spells.at(1)?.name }}
+          </p>
+          <p class="text-white">
+            {{ champData.spells.at(1)?.description }}
+          </p>
+        </div>
+        <div [ngClass]="!isEHovered ? 'hidden' : ''" class="bg-gray-600 translate-x-[40%] max-w-80 text-wrap p-4 pt-2">
+          <p class="text-white font-semibold">
+            {{ champData.spells.at(2)?.name }}
+          </p>
+          <p class="text-white">
+            {{ champData.spells.at(2)?.description }}
+          </p>
+        </div>
+        <div [ngClass]="!isRHovered ? 'hidden' : ''" class="bg-gray-600 translate-x-[80%] max-w-120 text-wrap p-4 pt-2">
+          <p class="text-white font-semibold">
+            {{ champData.spells.at(3)?.name }}
+          </p>
+          <p class="text-white">
+            {{ champData.spells.at(3)?.description }}
+          </p>
+        </div>
       </div>
     </div>
   </div>
