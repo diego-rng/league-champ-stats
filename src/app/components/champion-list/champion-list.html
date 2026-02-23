@@ -1,5 +1,26 @@
-<div class="flex flex-wrap gap-3 place-content-center">
-    @for (champion of champions; track champion.id) {
+<div>
+  <div class="flex justify-center mb-3">
+    <!-- <select (change)="laneSelectorChange" class="p-2 bg-white rounded-full">
+      <option selected value="">Select a Lane</option>
+      <option ngSelectionOption value="Top">Top</option>
+      <option ngSelectionOption value="Jungle">Jungle</option>
+      <option ngSelectionOption value="Mid">Mid</option>
+      <option ngSelectionOption value="Bottom">Bottom</option>
+      <option ngSelectionOption value="Support">Support</option>
+    </select> -->
+  </div>
+  <div class="flex flex-wrap gap-3 place-content-center">
+    @if (selectedLane) {
+      @for (champion of champions; track champion.id) {
+        @if (getChampionLane(champion.id) == selectedLane) {
+          <app-champion-card [champion]="champion" />
+        }
+      }
+    } @else {
+      <!-- Unfiltered List -->
+      @for (champion of champions; track champion.id) {
         <app-champion-card [champion]="champion" />
+      }
     }
+  </div>
 </div>
