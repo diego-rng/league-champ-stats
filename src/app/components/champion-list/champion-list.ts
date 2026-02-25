@@ -141,7 +141,7 @@ export class ChampionService {
 export class ChampionListComponent implements OnInit {
   labelsLane = ['Top', 'Jungle', 'Middle', 'Bottom', 'Support'];
 
-  labelsDiff = ['1', '2', '3', '4', '5'];
+  labelsDiff = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
 
   selectors = viewChildren<SelectComponent>(SelectComponent);
 
@@ -329,12 +329,6 @@ export class ChampionListComponent implements OnInit {
   selectedDiff: string | undefined = undefined;
 
   currentSearch: string | undefined = undefined;
-
-  filterOptions = {
-    selectedLane: this.selectedLane,
-    selectedDiff: this.selectedDiff,
-    currentSearch: this.currentSearch,
-  };
 
   get filteredChampions() {
     return this.champions.filter((champion) => {

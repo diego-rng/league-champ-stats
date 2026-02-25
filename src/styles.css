@@ -48,3 +48,13 @@
   animation-name: cardAnim;
   animation-duration:0.5s;
 }
+
+@keyframes modalAnim {
+  from {opacity:0%; bottom:10px}
+  to {opacity:100%;}
+}
+
+@utility modal-anim {
+  animation-name: modalAnim;
+  animation-duration:0.5s;
+}
