@@ -1,8 +1,17 @@
-import { Component, inject, Injectable, OnInit,  } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  Injectable,
+  OnInit,
+  viewChild,
+  viewChildren,
+} from '@angular/core';
+import { OverlayModule } from '@angular/cdk/overlay';
 import { NgModel } from '@angular/forms';
-
 import championList from '../../../assets/data-dragon/16.4.1/data/en_US/championFull.json';
 import { ChampionCardComponent } from '../champion-card/champion-card';
+import { SelectComponent } from '../select/select';
 
 export interface ChampionResponse {
   type: string;
@@ -125,10 +134,17 @@ export class ChampionService {
 
 @Component({
   selector: 'app-champion-list',
-  imports: [ChampionCardComponent],
+  imports: [ChampionCardComponent, SelectComponent],
   templateUrl: './champion-list.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChampionListComponent implements OnInit {
+  labelsLane = ['Top', 'Jungle', 'Middle', 'Bottom', 'Support'];
+
+  labelsDiff = ['1', '2', '3', '4', '5'];
+
+  selectors = viewChildren<SelectComponent>(SelectComponent);
+
   champions: Champion[] = [];
 
   ChampService = inject(ChampionService);
@@ -308,20 +324,70 @@ export class ChampionListComponent implements OnInit {
     Zyra: 'Support',
   };
 
-  selectedLane: string | undefined = undefined
+  selectedLane: string | undefined = undefined;
 
-  laneSelectorChange (selectedLane: string | undefined) {
-    this.selectedLane = selectedLane
-    console.log(" adsadasas" + this.selectedLane)
+  selectedDiff: string | undefined = undefined;
+
+  currentSearch: string | undefined = undefined;
+
+  filterOptions = {
+    selectedLane: this.selectedLane,
+    selectedDiff: this.selectedDiff,
+    currentSearch: this.currentSearch,
+  };
+
+  get filteredChampions() {
+    return this.champions.filter((champion) => {
+      const matchesLane =
+        !this.selectedLane || this.getChampionLane(champion.id) === this.selectedLane;
+
+      const matchesSearch =
+        !this.currentSearch || champion.id.toLowerCase().includes(this.currentSearch.toLowerCase());
+
+      const matchesDiff =
+        !this.selectedDiff || champion.info.difficulty.toString() === this.selectedDiff;
+
+      return matchesLane && matchesSearch && matchesDiff;
+    });
   }
 
-  getChampionLane(name:string):string {
-    if (name in this.SUGGESTED_LANE) {
-      return this.SUGGESTED_LANE[name as keyof typeof this.SUGGESTED_LANE]
+  onClearFiltersPress(): void {
+    const formElement = document.getElementById('search') as HTMLInputElement;
+    if (formElement) {
+      formElement.value = '';
     }
-    return ""
+    this.selectors()[0]?.clear();
+    this.selectors()[1]?.clear();
+    this.selectedLane = undefined;
+    this.currentSearch = undefined;
   }
 
+  undefinedCheck(value: any): boolean {
+    return value === undefined || value === null;
+  }
+
+  onSearchKeyPress(event: any) {
+    this.currentSearch = event.target.value;
+    if (event.target.value == '') {
+      this.currentSearch = undefined;
+    }
+  }
+
+  onLaneSelectorChange(event: any) {
+    this.selectedLane = event.target.value;
+  }
+
+  laneSelectorChange(selectedLane: string | undefined) {
+    this.selectedLane = selectedLane;
+    console.log(' adsadasas' + this.selectedLane);
+  }
+
+  getChampionLane(name: string): string {
+    if (name in this.SUGGESTED_LANE) {
+      return this.SUGGESTED_LANE[name as keyof typeof this.SUGGESTED_LANE];
+    }
+    return '';
+  }
 
   ngOnInit() {
     const data = this.ChampService.getChampions();

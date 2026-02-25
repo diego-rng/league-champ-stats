@@ -38,3 +38,13 @@
   mask-image: -moz-element(image);
   mask-mode: alpha;
 }
+
+@keyframes cardAnim {
+  from {top:10px; opacity: 0%}
+  to {top:0; opacity: 100%}
+}
+
+@utility card-anim {
+  animation-name: cardAnim;
+  animation-duration:0.5s;
+}

@@ -1,22 +1,26 @@
 <div>
-  <div class="flex justify-center mb-3">
-    <!-- <select (change)="laneSelectorChange" class="p-2 bg-white rounded-full">
-      <option selected value="">Select a Lane</option>
-      <option ngSelectionOption value="Top">Top</option>
-      <option ngSelectionOption value="Jungle">Jungle</option>
-      <option ngSelectionOption value="Mid">Mid</option>
-      <option ngSelectionOption value="Bottom">Bottom</option>
-      <option ngSelectionOption value="Support">Support</option>
-    </select> -->
+
+  <div class="justify-center flex mb-4">
+    <selector [labels]="labelsLane" [(selected)]="selectedLane" />
+    <selector [labels]="labelsDiff" [(selected)]="selectedDiff" class="ml-4" />
+    <input
+      type="text"
+      placeholder="Search for a champion..."
+      id="search"
+      (keypress)="onSearchKeyPress($event)"
+      class="bg-white rounded-full text-black placeholder:text-gray-400 p-2 px-4 ml-4 min-w-100"
+    />
+    <button type="button" (click)="onClearFiltersPress()" class="bg-white text-black p-2 px-4 ml-4 cursor-pointer rounded-full">Clear Filters</button>
   </div>
   <div class="flex flex-wrap gap-3 place-content-center">
-    @if (selectedLane) {
-      @for (champion of champions; track champion.id) {
-        @if (getChampionLane(champion.id) == selectedLane) {
-          <app-champion-card [champion]="champion" />
-        }
+    <!-- All Filters Combined -->
+    @if (selectedDiff || selectedLane || currentSearch) {
+      @for (champion of filteredChampions; track champion.id) {
+        <app-champion-card [champion]="champion" />
+      } @empty {
+        <div class="text-white"><p>No results.</p></div>
       }
-    } @else {
+  }@else {
       <!-- Unfiltered List -->
       @for (champion of champions; track champion.id) {
         <app-champion-card [champion]="champion" />
