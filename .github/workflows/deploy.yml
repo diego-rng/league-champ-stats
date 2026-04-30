@@ -1,0 +1,69 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build Angular App
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      # SSR is enabled in angular.json, but GitHub Pages only serves static files.
+      # --output-mode=static disables SSR and generates a fully pre-rendered static build.
+      - name: Build (static output)
+        run: npx ng build --configuration production --output-mode=static --base-href /league-champ-stats/
+
+      # Angular Router uses HTML5 pushState; copy index.html to 404.html so deep
+      # links still resolve after a hard refresh on GitHub Pages.
+      - name: Add 404 fallback for Angular Router
+        run: cp dist/league-champ-stats/browser/index.html dist/league-champ-stats/browser/404.html
+
+      # GitHub Pages runs Jekyll by default and ignores files/folders that start
+      # with an underscore (_). Angular puts hashed assets in such folders, so we
+      # must disable Jekyll processing with an empty .nojekyll file.
+      - name: Disable Jekyll processing
+        run: touch dist/league-champ-stats/browser/.nojekyll
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist/league-champ-stats/browser
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: build
+    runs-on: ubuntu-latest
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
